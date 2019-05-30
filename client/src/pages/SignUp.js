@@ -1,6 +1,8 @@
 
 import React, { Component } from "react";
 import Form from "../components/SignUpForm";
+// import API from "../utils/API";
+import axios from "axios";
 
 
 class SignUp extends Component {
@@ -11,12 +13,12 @@ class SignUp extends Component {
     };
 
    
-    // handleInputChange = event => {
-    //     const { name, value } = event.target;
-    //     this.setState({
-    //         [name]: value
-    //     });
-    //   }
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value
+        });
+      }
     
     // registerUser = () => {
     //     API.registerUser(this.state.username, this.state.password)
@@ -33,36 +35,39 @@ class SignUp extends Component {
     //         );
     // };
     
-    // handleFormSubmit = event => {
-    //     event.preventDefault();
-    //     console.log("SignUpForm, username");
-    //     console.log(this.state.username);
-    //     console.log(this.state.password);
+    handleFormSubmit = event => {
+        event.preventDefault();
+        console.log(this.state.username);
+        console.log(this.state.password);
+        
+        // this.registerUser();
 
-    //     // this.registerUser();
+        axios.post("/api/user", {
+            username: this.state.username,
+            password: this.state.password
+        })
+            .then(response => {
+                console.log(response);
 
-    //     axios.post("/", {
-    //         username: this.state.username,
-    //         password: this.state.password
-    //     })
-    //         .then(response => {
-    //             console.log(response);
+                if (response.data) {
+                    console.log("Successful Sign Up!");
+                    this.props.updateUser({
+                        loggedIn: true,
+                        username: response.data.username
+                    })
+                    this.setState({
+                        redirectTo: "/"
+                    })
+                } else {
+                    console.log("Sign Up Error");
 
-    //             if (response.data) {
-    //                 console.log("Successful Sign Up!");
-    //                 this.setState({
-    //                     redirectTo: "/dashboard"
-    //                 })
-    //             } else {
-    //                 console.log("Sign Up Error");
+                }
+            }).catch(error => {
+                console.log("Sign Up Server Error!");
+                console.log(error);
 
-    //             }
-    //         }).catch(error => {
-    //             console.log("Sign Up Server Error!");
-    //             console.log(error);
-
-    //         })
-    // }
+            })
+    }
 
     render() {
         return (
