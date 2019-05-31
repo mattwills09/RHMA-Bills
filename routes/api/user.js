@@ -1,12 +1,34 @@
 const router = require("express").Router();
 const userController = require("../controllers/userController");
+const passport = require("../passport");
 
-router.route("/")
-  .post(userController.create);
+router.route("/", (req, res) => {
+    console.log("User Sign Up");
+    
+    const { username, password } = req.body
+    User.findOne({ username: username }, (err, user) => {
+        if (err) {
+            console.log("User.js post error: ", err)
+        } else if (user) {
+            res.json({
+                error: "User already exists with username!"
+            })
+        } else { const newUser = new User({
+            username: username,
+            password: password
+        })
+        newUser.save((err, savedUser) => {
+            if (err)
+                return res.json(err)
+                res.json(savedUser)
+        })
 
-router.post(
-    "login",
-    function (req, res, next) {
+        }
+    })
+})
+
+router.route("/login")
+    .post(function (req, res, next) {
         console.log("routes/user.js, login, req.body: ");
         console.log(req.body)
         next()
@@ -20,6 +42,34 @@ router.post(
         res.send(userInfo);
     }
 )
+
+router.route("/")
+    .get(function(req, res, next) {
+        console.log(req.user);
+        if (req.user) {
+            res.json({
+                user: req.user
+            })
+        } else {
+            res.json({
+                user: null
+            })
+        }
+    })
+
+router.route("/logout")
+    .post(function(req, res) {
+        if (req.user) {
+            req.logout()
+            res.send({
+                message: "Logging Out.."
+            })
+        } else {
+            res.send({
+                message: "No User To Log Out."
+            })
+        }
+    })
 
 
 module.exports = router;

@@ -10,6 +10,9 @@ class LogIn extends Component {
       message: "Enter Username and Password to Log In."
     };
 
+    updateUser() {
+
+    }
    
     handleLogInInputChange = event => {
         const { name, value } = event.target;
@@ -24,7 +27,7 @@ class LogIn extends Component {
         console.log(this.state.password);
         // this.registerUser();
 
-        axios.post("/api/user", {
+        axios.post("/api/user/login", {
             username: this.state.username,
             password: this.state.password
         })
@@ -33,12 +36,12 @@ class LogIn extends Component {
 
                 if (response.data) {
                     console.log("Successful Log In.");
-                    this.props.updateUser({
-                        loggedIn: true,
-                        username: response.data.username
-                    })
+                    // this.updateUser({
+                    //     loggedIn: true,
+                    //     username: response.data.username
+                    // })
                     this.setState({
-                        redirectTo: "/Dashboard"
+                        redirectTo: "/dashboard"
                     })
                 } else {
                     console.log("Log In Error");

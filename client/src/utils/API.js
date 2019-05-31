@@ -6,4 +6,8 @@ export default {
         return axios.post("/api/user", username, password);
     }
 
+    // updateUser: {
+
+    // }
+
 }

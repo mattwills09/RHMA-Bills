@@ -1,11 +1,25 @@
 const passport = require("passport");
+const LocalStrategy = require("./localStrategy");
+const User = require("../models/user");
 
-// const db = require("../models/");
 
-passport.serializeUser(function(user, cb) {
-    cb(null, user);
-});
+passport.serializeUser(function(user, done) {
+    console.log(user);
+    done(null, { _id: user._id });
+})
 
-passport.deserializeUser(function(obj, cb) {
-    cb(null, obj);
-});
+passport.deserializeUser((id, done) => {
+    console.log("Deserialized User called..");
+    User.findOne(
+        { _id: id },
+        "username",
+        (err, user) => {
+            console.log(user);
+            done(null, user)
+        }
+    )
+})
+
+passport.use(LocalStrategy);
+
+module.exports = passport;

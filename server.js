@@ -6,7 +6,7 @@ const session = require("express-session");
 // const routes = require("./routes");
 const passport = require("./passport/");
 const userController = require("./controllers/userController");
-const MongoStore = require("connect-mongo")(session)
+// const MongoStore = require("connect-mongo")(session)
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 const dbConnection = require("./models");
@@ -19,7 +19,7 @@ app.use(express.static("public"));
 
 //Sessions
 app.use(session({secret: 'fraggle-rock',
-                 store: new MongoStore({ mongooseConnection: dbConnection }),
+                //  store: new MongoStore({ mongooseConnection: dbConnection }),
                  resave: false,
                  saveUnitialized: false}));
 
