@@ -4,23 +4,27 @@ const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
 // const routes = require("./routes");
-const passport = require("./passport");
+const passport = require("./passport/");
 const userController = require("./controllers/userController");
+const MongoStore = require("connect-mongo")(session)
 const path = require("path");
 const PORT = process.env.PORT || 3001;
+const dbConnection = require("./models");
 const app = express();
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("public"));
 
-// app.use(passport.initialize())
-// app.use(passport.session())
-// ^ calls serializeUser & deserializeUser
-
+//Sessions
 app.use(session({secret: 'fraggle-rock',
+                 store: new MongoStore({ mongooseConnection: dbConnection }),
                  resave: false,
-                 saveUnitialized: false}))
+                 saveUnitialized: false}));
+
+// app.use(passport.initalize());
+// app.use(passport.session());
 
 app.use((req, res, next) => {
   console.log("req.session", req.session);
@@ -28,7 +32,6 @@ app.use((req, res, next) => {
 });
 
 app.post("/api/user", userController.create);
-
 // (req, res) => {
 //   console.log("user signup");
 //   req.session.username = req.body.username;

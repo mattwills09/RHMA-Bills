@@ -1,24 +1,24 @@
 
 import React, { Component } from "react";
-import Form from "../components/SignUpForm";
+import Form from "../components/LogInForm";
 import axios from "axios";
 
-class SignUp extends Component {
+class LogIn extends Component {
     state = {
       username: "",
       password: "",
-      message: "Enter Username and Password to Begin!"
+      message: "Enter Username and Password to Log In."
     };
 
    
-    handleInputChange = event => {
+    handleLogInInputChange = event => {
         const { name, value } = event.target;
         this.setState({
             [name]: value
         });
       }
     
-    handleFormSubmit = event => {
+    handleLogInSubmit = event => {
         event.preventDefault();
         console.log(this.state.username);
         console.log(this.state.password);
@@ -32,23 +32,22 @@ class SignUp extends Component {
                 console.log(response);
 
                 if (response.data) {
-                    console.log("Successful Sign Up!");
+                    console.log("Successful Log In.");
                     this.props.updateUser({
                         loggedIn: true,
                         username: response.data.username
                     })
                     this.setState({
-                        username: "",
-                        password: "",
                         redirectTo: "/Dashboard"
                     })
                 } else {
-                    console.log("Sign Up Error");
+                    console.log("Log In Error");
 
                 }
             }).catch(error => {
-                console.log("Sign Up Server Error!");
+                console.log("Log In Server Error!");
                 console.log(error);
+
             })
     }
 
@@ -61,11 +60,11 @@ class SignUp extends Component {
                     <strong>HARM Enterprises Financial Help</strong>
                 </h1>
 
-                <h2 className="text-center">Sign Up to Join Us.  We mean well.</h2>
+                <h2 className="text-center">We're here to help.. we promise.</h2>
 
                 <Form
-                    handleInputChange={this.handleInputChange}
-                    handleFormSubmit={this.handleFormSubmit}
+                    handleLogInInputChange={this.handleLogInInputChange}
+                    handleLogInFormSubmit={this.handleLogInSubmit}
                     username={this.state.username}
                     password={this.state.password}
                 />
@@ -76,4 +75,4 @@ class SignUp extends Component {
 }
 
 
-export default SignUp;
+export default LogIn;

@@ -1,9 +1,6 @@
 const router = require("express").Router();
 const userController = require("../controllers/userController");
 
-router.route("/")
-  .post(userController.create);
-
 router.post(
     "login",
     function (req, res, next) {
@@ -20,6 +17,3 @@ router.post(
         res.send(userInfo);
     }
 )
-
-
-module.exports = router;

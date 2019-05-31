@@ -1,6 +1,7 @@
 
 import React, { Component } from "react";
 import SignUp from "./pages/SignUp"
+import LogIn from "./pages/LogIn";
 
 import logo from "./logo.svg";
 import "./App.css";
@@ -20,6 +21,9 @@ class App extends Component {
 
       
       <SignUp />
+
+      <LogIn />
+
 
 
     </div>

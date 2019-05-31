@@ -1,14 +1,14 @@
 
 import React from "react";
 
-function SignUpForm({ username, password, handleInputChange, handleFormSubmit })    {
+function LogInForm({ username, password, handleLogInInputChange, handleLogInSubmit })  
+    {
     return (
-
-    <form>
+        <form>
         <div className="form-group">
 
             <label htmlFor="username">
-                <strong>Sign-Up Page</strong>
+                <strong>Log In Page</strong>
             </label>
 
             <input
@@ -18,7 +18,7 @@ function SignUpForm({ username, password, handleInputChange, handleFormSubmit })
                 name="username"
                 value={username}
                 placeholder="Input Username.."
-                onChange={handleInputChange}
+                onChange={handleLogInInputChange}
                 required={true}
             />
 
@@ -29,7 +29,7 @@ function SignUpForm({ username, password, handleInputChange, handleFormSubmit })
                 name="password"
                 value={password}
                 placeholder="Input Password.."
-                onChange={handleInputChange}
+                onChange={handleLogInInputChange}
                 required={true}
             />
 
@@ -37,11 +37,11 @@ function SignUpForm({ username, password, handleInputChange, handleFormSubmit })
         
         <div className="pull-right">
             <button
-                onClick={handleFormSubmit}
+                onClick={handleLogInSubmit}
                 type="submit"
                 className="btn btn-lg btn-danger float-right"
             >
-                Sign Up
+                Log In
             </button>
         </div>
     </form>
@@ -49,4 +49,4 @@ function SignUpForm({ username, password, handleInputChange, handleFormSubmit })
 }
 
 
-export default SignUpForm;
+export default LogInForm;
