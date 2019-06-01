@@ -6,6 +6,9 @@ const session = require("express-session");
 // const routes = require("./routes");
 const passport = require("./passport");
 const userController = require("./controllers/userController");
+const expenseController = require("./controllers/expenseController");
+const dummyData = require("./controllers/dummyDataController");
+
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -14,8 +17,8 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// app.use(passport.initialize())
-// app.use(passport.session())
+// app.use(passport.initialize());
+// app.use(passport.session());
 // ^ calls serializeUser & deserializeUser
 
 app.use(session({secret: 'fraggle-rock',
@@ -28,6 +31,10 @@ app.use((req, res, next) => {
 });
 
 app.post("/api/user", userController.create);
+
+app.post("/api/expense", expenseController.create);
+
+dummyData.create();
 
 // (req, res) => {
 //   console.log("user signup");
@@ -55,9 +62,9 @@ mongoose.connect(
 
 // Send every other request to the React app
 // Define any API routes before this runs
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
+// });
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
