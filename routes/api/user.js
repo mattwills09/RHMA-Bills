@@ -2,6 +2,7 @@ const router = require("express").Router();
 const userController = require("../controllers/userController");
 const passport = require("../passport");
 
+
 router.route("/", (req, res) => {
     console.log("User Sign Up");
     
@@ -22,7 +23,6 @@ router.route("/", (req, res) => {
                 return res.json(err)
                 res.json(savedUser)
         })
-
         }
     })
 })
@@ -73,3 +73,4 @@ router.route("/logout")
 
 
 module.exports = router;
+

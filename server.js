@@ -12,12 +12,12 @@ const PORT = process.env.PORT || 3001;
 const dbConnection = require("./models");
 const app = express();
 
-// Define middleware here
+// Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-//Sessions
+// Sessions
 app.use(session({secret: 'fraggle-rock',
                 //  store: new MongoStore({ mongooseConnection: dbConnection }),
                  resave: false,
@@ -35,16 +35,16 @@ app.post("/api/user", userController.create);
 // (req, res) => {
 //   console.log("user signup");
 //   req.session.username = req.body.username;
-  
+
   // res.json(req.session.username)
 // }
 
-// Serve up static assets (usually on heroku)
+// Static Assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-// Define API routes here
+// API Routes
 // app.use(routes);
 
 // Connect to the Mongo DB
