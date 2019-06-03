@@ -9,13 +9,14 @@ const userController = require("./controllers/userController");
 // const MongoStore = require("connect-mongo")(session)
 const path = require("path");
 const PORT = process.env.PORT || 3001;
-const dbConnection = require("./models");
+const users = require("./routes/api/user");
 const app = express();
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
+// app.use(passport.initalize());
 
 // Sessions
 app.use(session({secret: 'fraggle-rock',
@@ -23,7 +24,7 @@ app.use(session({secret: 'fraggle-rock',
                  resave: false,
                  saveUnitialized: false}));
 
-// app.use(passport.initalize());
+
 // app.use(passport.session());
 
 app.use((req, res, next) => {
@@ -32,6 +33,11 @@ app.use((req, res, next) => {
 });
 
 app.post("/api/user", userController.create);
+
+app.put("/api/user", userController.update);
+
+app.get("/api/user", userController.get);
+
 // (req, res) => {
 //   console.log("user signup");
 //   req.session.username = req.body.username;
@@ -45,7 +51,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // API Routes
-// app.use(routes);
+app.use("/api/users", users);
 
 // Connect to the Mongo DB
 mongoose.connect(
@@ -56,11 +62,12 @@ mongoose.connect(
   }
 );
 
-// Send every other request to the React app
-// Define any API routes before this runs
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+// Send every request to the React app &
+// Define API routes before this runs
+
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
+// });
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);

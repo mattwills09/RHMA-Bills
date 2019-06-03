@@ -1,19 +1,18 @@
-
 import React, { Component } from "react";
 import Form from "../components/LogInForm";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
+
 
 class LogIn extends Component {
     state = {
       username: "",
       password: "",
-      message: "Enter Username and Password to Log In."
+      message: "Enter Username and Password to Log In.",
+      redirectTo: null
     };
 
-    updateUser() {
-
-    }
-   
+  
     handleLogInInputChange = event => {
         const { name, value } = event.target;
         this.setState({
@@ -25,7 +24,6 @@ class LogIn extends Component {
         event.preventDefault();
         console.log(this.state.username);
         console.log(this.state.password);
-        // this.registerUser();
 
         axios.post("/api/user/login", {
             username: this.state.username,
@@ -41,6 +39,8 @@ class LogIn extends Component {
                     //     username: response.data.username
                     // })
                     this.setState({
+                        username: "",
+                        password: "",
                         redirectTo: "/dashboard"
                     })
                 } else {
@@ -55,6 +55,10 @@ class LogIn extends Component {
     }
 
     render() {
+        if (this.state.redirectTo) {
+            return <Redirect to={{ pathname: this.state.redirectTo }} />
+        } else {
+
         return (
 
             <div>
@@ -63,7 +67,7 @@ class LogIn extends Component {
                     <strong>HARM Enterprises Financial Help</strong>
                 </h1>
 
-                <h2 className="text-center">We're here to help.. we promise.</h2>
+                <h3 className="text-center">We're here to help.. we promise.</h3>
 
                 <Form
                     handleLogInInputChange={this.handleLogInInputChange}
@@ -74,6 +78,7 @@ class LogIn extends Component {
 
             </div>
         );
+        }
     }
 }
 

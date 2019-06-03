@@ -1,6 +1,8 @@
-const router = require("express").Router();
-const userController = require("../controllers/userController");
-const passport = require("../passport");
+const express = require("express");
+const router = express.Router();
+const User = require("../../models/user");
+const passport = require("../../passport");
+// const userController = require("../controllers/userController");
 
 
 router.route("/", (req, res) => {
@@ -40,12 +42,12 @@ router.route("/login")
             username: req.user.username
         };
         res.send(userInfo);
-    }
-)
+    })
 
 router.route("/")
     .get(function(req, res, next) {
         console.log(req.user);
+
         if (req.user) {
             res.json({
                 user: req.user
@@ -73,4 +75,3 @@ router.route("/logout")
 
 
 module.exports = router;
-

@@ -22,10 +22,12 @@ userSchema.methods = {
 // Define pre-hooks for the save method for hashed passwords
 userSchema.pre('save', function (next) {
   if (!this.password) {
-    console.log('models/user.js =======NO PASSWORD PROVIDED=======')
+    console.log('models/user.js =======NO PASSWORD PROVIDED=======');
+
     next()
   } else {
     console.log('models/user.js hashPassword in pre save');
+
     this.password = this.hashPassword(this.password)
     next()
   }
@@ -34,5 +36,4 @@ userSchema.pre('save', function (next) {
 
 
 const User = mongoose.model("User", userSchema);
-
 module.exports = User;

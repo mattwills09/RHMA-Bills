@@ -8,7 +8,7 @@ const strategy = new LocalStrategy(
         usernameField: "username"
     },
     function(username, password, done) {
-        db.User.findOne({
+        User.findOne({
             where: {
                 username: username
             }

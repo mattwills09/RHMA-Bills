@@ -1,5 +1,5 @@
-
 import React from "react";
+
 
 function SignUpForm({ username, password, handleInputChange, handleFormSubmit })    {
     return (

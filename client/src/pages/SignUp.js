@@ -1,13 +1,15 @@
-
 import React, { Component } from "react";
 import Form from "../components/SignUpForm";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
+
 
 class SignUp extends Component {
     state = {
       username: "",
       password: "",
-      message: "Enter Username and Password to Begin!"
+      message: "Enter Username and Password to Begin!",
+      redirectTo: null
     };
 
    
@@ -22,7 +24,6 @@ class SignUp extends Component {
         event.preventDefault();
         console.log(this.state.username);
         console.log(this.state.password);
-        // this.registerUser();
 
         axios.post("/api/user", {
             username: this.state.username,
@@ -33,15 +34,16 @@ class SignUp extends Component {
 
                 if (response.data) {
                     console.log("Successful Sign Up!");
-                    this.props.updateUser({
-                        loggedIn: true,
-                        username: response.data.username
-                    })
+                    // this.API.updateUser({
+                    //     loggedIn: true,
+                    //     username: response.data.username
+                    // })
                     this.setState({
                         username: "",
                         password: "",
-                        redirectTo: "/Dashboard"
+                        redirectTo: "/dashboard"
                     })
+                    // this.props.history.push("/dashboard");
                 } else {
                     console.log("Sign Up Error");
 
@@ -53,6 +55,10 @@ class SignUp extends Component {
     }
 
     render() {
+        if (this.state.redirectTo) {
+            return <Redirect to={{ pathname: this.state.redirectTo }} />
+        } else {
+           
         return (
 
             <div>
@@ -72,6 +78,7 @@ class SignUp extends Component {
 
             </div>
         );
+        }
     }
 }
 

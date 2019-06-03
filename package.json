@@ -1,7 +1,7 @@
 {
   "name": "mern",
   "version": "1.0.0",
-  "description": "Mern Demo",
+  "description": "HARM Enterprises",
   "main": "server.js",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
@@ -27,7 +27,6 @@
     "if-env": "^1.0.4",
     "mongoose": "^5.5.11",
     "passport": "^0.4.0",
-    "passport-local": "^1.0.0",
-    "react-router-dom": "^5.0.0"
+    "passport-local": "^1.0.0"
   }
 }
