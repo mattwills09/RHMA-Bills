@@ -35,6 +35,7 @@ app.post("/api/user", userController.create);
 app.post("/api/expense", expenseController.create);
 
 app.get("/api/expense", expenseController.read);
+app.get("/api/expense/:mon", expenseController.findByMonth);
 
 dummyData.create();
 

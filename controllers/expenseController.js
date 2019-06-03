@@ -10,5 +10,10 @@ module.exports = {
         db.Expenses.find({})
                    .then(dbExpense => res.json(dbExpense))
                    .catch(err=> res.status(422).json(err));
+    },
+    findByMonth: (req, res) => {
+        db.Expenses.findOne({month:req.params.mon})
+                   .then(dbExpense => res.json(dbExpense))
+                   .catch(err=> res.status(422).json(err));
     }
 }
