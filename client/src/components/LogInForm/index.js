@@ -1,7 +1,7 @@
 import React from "react";
 
 
-function LogInForm({ username, password, handleLogInInputChange, handleLogInSubmit })  
+function LogInForm({ username, password, handleLogInInputChange, handleLogInSubmit })
     {
     return (
         <form>

@@ -3,10 +3,10 @@ const LocalStrategy = require("passport-local").Strategy;
 
 
 const strategy = new LocalStrategy(
-
     {
         usernameField: "username"
     },
+    
     function(username, password, done) {
         User.findOne({
             where: {
@@ -18,11 +18,13 @@ const strategy = new LocalStrategy(
                     message: "No Username Match Found, Please Sign Up!"
                 });
             } else if (!dbUser.checkPassword(password)) {
-                    return done(null, false, {
-                        message: "Incorrect Password!"
-                    });
-                }
-                return done (null, dbUser);
+                return done(null, false, {
+                    message: "Incorrect Password!"
+                });
+            }
+                return done (null, dbUser, {
+                    message: "Success!"
+                });
         });
     }
 );

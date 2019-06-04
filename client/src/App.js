@@ -20,7 +20,7 @@ class App extends Component {
   // this.updateUser = this.updateUser.bind(this)
 
 componentDidMount() {
-  this.getUser()
+  // this.getUser()
 }
 
 updateUser(userObject) {
@@ -32,16 +32,14 @@ getUser() {
     console.log("Get User Response: ")
     console.log(response.data)
 
-    if (response.data.user) {
+    if (response.data.username) {
       console.log("Get User: There is a user saved in the server session: ")
-
       this.setState({
         loggedIn: true,
-        username: response.data.user.username
+        username: response.data.username
       })
     } else {
       console.log("Get User: No username found");
-      
       this.setState({
         loggedIn: false,
         username: null

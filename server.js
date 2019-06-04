@@ -6,7 +6,7 @@ const session = require("express-session");
 const userController = require("./controllers/userController");
 const users = require("./routes/api/user");
 const app = express();
-const routes = require("./routes");
+// const routes = require("./routes/api/");
 const passport = require("./passport/");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
@@ -15,32 +15,31 @@ const PORT = process.env.PORT || 3001;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
-// app.use(passport.initalize());
+app.use(passport.initialize());
 
 // Sessions ============================
-app.use(session({
-  secret: 'fraggle-rock',
+app.use(passport.session({
+  secret: "fraggle-rock",
   //store: new MongoStore({ mongooseConnection: dbConnection }),
   resave: false,
   saveUnitialized: false}
 ));
-
-// app.use(passport.session());
 
 app.use((req, res, next) => {
   console.log("req.session", req.session);
   return next();
 });
 
+app.post("/user", (req, res) => {
+  console.log("User Sign Up");
+  // req.session.username = req.body.username;
+  // res.end()
+});
+
 app.post("/api/user", userController.create);
+app.post("/api/user/login", userController.login);
 app.put("/api/user", userController.update);
 app.get("/api/user", userController.get);
-
-// (req, res) => {
-//   console.log("user signup");
-//   req.session.username = req.body.username;
-  // res.json(req.session.username)
-// }
 
 // Static Assets (usually on heroku) =========
 if (process.env.NODE_ENV === "production") {
@@ -48,7 +47,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // API Routes ================
-app.use("/api/users", users);
+app.use("/api/", users);
 
 // Connect to the Mongo DB ===
 mongoose.connect(

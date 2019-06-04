@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import Form from "../components/LogInForm";
+import LogInForm from "../components/LogInForm";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import PasswordShowHide from "../components/PasswordShowHide/passwordShowHide";
 
 
 class LogIn extends Component {
@@ -32,7 +33,7 @@ class LogIn extends Component {
             .then(response => {
                 console.log(response);
 
-                if (response.data) {
+                if (response) {
                     console.log("Successful Log In.");
                     // this.updateUser({
                     //     loggedIn: true,
@@ -69,12 +70,14 @@ class LogIn extends Component {
 
                 <h3 className="text-center">We're here to help.. we promise.</h3>
 
-                <Form
+                <LogInForm
                     handleLogInInputChange={this.handleLogInInputChange}
-                    handleLogInFormSubmit={this.handleLogInSubmit}
+                    handleLogInSubmit={this.handleLogInSubmit}
                     username={this.state.username}
                     password={this.state.password}
                 />
+
+                <PasswordShowHide/>
 
             </div>
         );
