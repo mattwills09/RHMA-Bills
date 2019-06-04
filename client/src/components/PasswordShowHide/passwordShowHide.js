@@ -32,9 +32,14 @@ class PasswordShowHide extends Component {
     return (
       <div>
         <input
+          name="password"
+          id="password"
+          className="form-control"
           type={this.state.hidden ? "password" : "text"}
           value={this.state.password}
           onChange={this.handlePasswordChange}
+          placeholder="Enter Password.."
+          required={true}
         />
         <button onClick={this.toggleShow}>Show / Hide</button>
       </div>

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Form from "../components/SignUpForm";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import PasswordShowHide from "../components/PasswordShowHide/passwordShowHide";
 
 
 class SignUp extends Component {
@@ -75,6 +76,8 @@ class SignUp extends Component {
                     username={this.state.username}
                     password={this.state.password}
                 />
+
+                <PasswordShowHide/>
 
             </div>
         );
