@@ -21,5 +21,5 @@ passport.deserializeUser((id, done) => {
     )
 })
 
-passport.use("passportSomething", LocalStrategy);
+passport.use("local", LocalStrategy);
 module.exports = passport;

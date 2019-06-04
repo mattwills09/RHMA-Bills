@@ -35,14 +35,37 @@ router.route("/login")
         console.log(req.body)
         next()
     },
-    passport.authenticate("local"),
-    (req, res) => {
-        console.log("logged in", req.user);
-        var userInfo = {
-            username: req.user.username
-        };
-        res.send(userInfo);
-    })
+    passport.authenticate("local", function (error, user, info) {
+// this will execute in any case, even if a passport strategy will find an error, and log everything to console
+        console.log(error);
+        console.log(user);
+        console.log(info);
+  
+        if (error) {
+          res.status(401).send(error);
+        } else if (!user) {
+          res.status(401).send(info);
+        } else {
+          next();
+        }
+        res.status(401).send(info);
+    }),
+
+(req, res) => {
+    console.log("logged in", req.user);
+    var userInfo = {
+        username: req.user.username
+    };
+    res.send(userInfo);
+});
+
+    // (req, res) => {
+    //     console.log("logged in", req.user);
+    //     var userInfo = {
+    //         username: req.user.username
+    //     };
+    //     res.send(userInfo);
+    // })
 
 router.route("/")
     .get(function(req, res, next) {

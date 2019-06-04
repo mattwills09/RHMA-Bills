@@ -4,7 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const userController = require("./controllers/userController");
-const users = require("./routes/api/user");
+const user = require("./routes/api/user");
 const app = express();
 // const routes = require("./routes/api/");
 const passport = require("./passport/");
@@ -18,12 +18,15 @@ app.use(express.static("public"));
 app.use(passport.initialize());
 
 // Sessions ============================
-app.use(passport.session({
+app.use(session({
   secret: "fraggle-rock",
   //store: new MongoStore({ mongooseConnection: dbConnection }),
   resave: false,
   saveUnitialized: false}
 ));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use((req, res, next) => {
   console.log("req.session", req.session);
@@ -48,7 +51,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // API Routes ================
-app.use("/api/", users);
+app.use("/api/", user);
 
 // Connect to the Mongo DB ===
 mongoose.connect(

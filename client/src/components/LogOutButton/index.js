@@ -30,7 +30,7 @@ class LogOutButton extends Component {
 
   
     render() {
-        if (this.state.redirect) {
+        if (this.state.redirectTo) {
             return <Redirect to={{ pathname: this.state.redirectTo }} />
         } else {
 
@@ -39,7 +39,7 @@ class LogOutButton extends Component {
             <div className="pull-right">
 
                 <button
-                    onClick={this.setLogOut}
+                    onClick={this.handleLogOutButton}
                     type="submit"
                     className="btn btn-lg btn-warning float-right"
                 >
