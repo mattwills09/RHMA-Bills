@@ -20,19 +20,11 @@ module.exports = {
             .then(dbUser => res.json(dbUser))
             .catch(err => res.status(422).json(err));
     },
+
     login: function(req, res) {
         db.User.findOne(req.body)
             .then(dbUser => res.json(dbUser))
             .catch(err => res.status(422).json(err));
     }
 
-        // db.User.findOne({
-        //     where: {
-        //     username: req.body.username
-        //     }
-        // })
-        //     .then(dbUser => res.json(dbUser))
-        //     .catch(err => res.status(422).json(err));
-        // }
-    
 }
